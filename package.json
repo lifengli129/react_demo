@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.5.5",
+    "@babel/runtime": "^7.6.0",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
@@ -17,7 +18,7 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
-    "eslint": "^6.1.0",
+    "eslint": "^6.4.0",
     "eslint-config-react-app": "^5.0.1",
     "eslint-loader": "2.2.1",
     "eslint-plugin-flowtype": "3.13.0",
@@ -36,6 +37,7 @@
     "jest-watch-typeahead": "0.3.1",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "lint-staged": "^9.2.5",
     "mini-css-extract-plugin": "0.5.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",
@@ -44,6 +46,7 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
+    "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-app-polyfill": "^1.0.2",
@@ -68,7 +71,12 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "lint": "eslint src",
+    "lint:create": "eslint --init"
+  },
+  "lint-staged": {
+    "src/**/*.js": "eslint"
   },
   "eslintConfig": {
     "extends": "react-app"
