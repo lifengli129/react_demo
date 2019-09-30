@@ -3,7 +3,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-16 15:48:40
- * @LastEditTime: 2019-09-18 16:19:26
+ * @LastEditTime: 2019-09-29 14:42:55
  * @LastEditors: Please set LastEditors
  */
 //格式化
@@ -23,14 +23,15 @@ const getDefaultHeader = function (token = '15_3D8Nwe041_uke2qNHZvZ') {
     };
 };
 const Fetch = function () {
-    debugger
+   
     var options;
     if (arguments[1]) {
         options = arguments[1]
     } else {
         options = {}
     }
-    if(!options.headers){
+   
+    if (!options.headers) {
         options.headers = {}
     }
     var timeout = options.timeout || 60000
@@ -43,16 +44,17 @@ const Fetch = function () {
         if (method === 'POST') {
             options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
         }
-        if(options.json){
+        if (options.json) {
             options.headers['Content-Type'] = 'application/json'
             options.body = JSON.stringify(options.json, undefined, 0)
-        }else if(options.data){
-            if(method === 'GET'){
+        } else if (options.data) {
+            if (method === 'GET') {
+               
                 _args[0] = _args[0] + (_args[0].indexOf('?') === -1 ? '?' : '&') + parseParam(options.data);
-            }else if(method === 'POST'){
-                if(typeof(options.data) == 'object') {
+            } else if (method === 'POST') {
+                if (typeof (options.data) == 'object') {
                     var formdata = new FormData();
-                    for(var i in options.data) {
+                    for (var i in options.data) {
                         formdata.append(i, options.data[i]);
                     }
                     options.body = parseParam(options.data);
@@ -60,15 +62,15 @@ const Fetch = function () {
                     options.body = options.data;
                 }
             }
-        }else{
+        } else {
             options.body = options.data
         }
         _args[1] = options;
         var fetchStatus = 200;
-        
-        if(timeout) {
+
+        if (timeout) {
             setTimeout(() => {
-                if(!hasResolved && !hasRejected) {
+                if (!hasResolved && !hasRejected) {
                     hasRejected = true;
                     var e = new Error('请求超时，请稍后再试');
                     e.code = 408;
@@ -80,32 +82,31 @@ const Fetch = function () {
             fetchStatus = res.status;
             return res.json();
         }).then(data => {
-            if(fetchStatus != 200){
+            if (fetchStatus != 200) {
                 var e = new Error('系统错误，请稍后重试');
                 e.code = fetchStatus;
-                throw e; 
-            }else{
-                if(typeof(data.code) == 'undefined' && typeof(data.success) == 'undefined') {
+                throw e;
+            } else {
+                if (typeof (data.code) == 'undefined' && typeof (data.success) == 'undefined') {
                     // 兼容一些不标准的返回结构，直接抛出整个data
-                    if(!hasResolved && !hasRejected) {
+                    if (!hasResolved && !hasRejected) {
                         hasResolved = true;
                         resolve(data);
                     }
-                }else{
-                    console.log(data)
+                } else {
                     // 标准结构的处理
-                    if(parseInt(data.code) === 10000 || data.success) {
-                        if(!hasResolved && !hasRejected) {
+                    if (parseInt(data.code) === 10000 || data.success) {
+                        if (!hasResolved && !hasRejected) {
                             hasResolved = true;
                             resolve(data);
                         }
 
-                    }else{
-                        if((parseInt(data.code) == 10001 || parseInt(data.code) == 10004) ) {
+                    } else {
+                        if ((parseInt(data.code) == 10001 || parseInt(data.code) == 10004)) {
                             //重新登录
                             hasRejected = true;
                             throw new Error('登录超时，请重新登录');
-                            
+
                         } else {
                             data.message = data.msg;
                             throw data;
@@ -113,15 +114,15 @@ const Fetch = function () {
                     }
                 }
             }
-        }).catch( e => {
-            if(e instanceof SyntaxError) {
+        }).catch(e => {
+            if (e instanceof SyntaxError) {
                 e.message = '网络错误：解析出错';
-            }else{
+            } else {
                 if (e.message === "Network request failed") {
                     e.message = "网络信号异常，连接网络失败";
                 }
             }
-            if(!hasResolved && !hasRejected) {
+            if (!hasResolved && !hasRejected) {
                 hasRejected = true;
                 reject(e);
             }

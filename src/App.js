@@ -2,17 +2,12 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-11 15:46:55
- * @LastEditTime: 2019-09-25 15:54:38
+ * @LastEditTime: 2019-09-29 10:57:07
  * @LastEditors: Please set LastEditors
  */
 import React from 'react';
 import logo from '@/logo.svg';
 import '@/App.css';
-
-// require('@/mock/index.js');
-require('@/mock/mockServer.js');
-
-
 import HomePage from '@/pages/HomePage'
 
 

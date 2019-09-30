@@ -74,6 +74,7 @@
     "lint": "eslint src",
     "lint:create": "eslint --init"
   },
+  "proxy": "http://localhost:3001",
   "lint-staged": {
     "src/**/*.js": "eslint"
   },

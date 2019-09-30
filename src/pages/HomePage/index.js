@@ -2,14 +2,13 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-18 15:08:21
- * @LastEditTime: 2019-09-25 16:05:12
+ * @LastEditTime: 2019-09-29 14:31:40
  * @LastEditors: Please set LastEditors
  */
-import React from 'react'
-// import axios from 'axios'
+import React from 'react' 
 import { Fetch } from '../../utils'
 const API = {
-    Test: `http://localhost:3000/api/getName`
+    Test: `/users`
 }
 export default class TestDemo extends React.Component {
     constructor(props) {
@@ -19,9 +18,6 @@ export default class TestDemo extends React.Component {
         }
     }
     componentDidMount() {
-        // axios.get(API.Test).then(res => {
-        //     console.log(res)
-        // })
         Fetch(API.Test, {
             method: 'GET',
             data: {
